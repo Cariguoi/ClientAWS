@@ -27,8 +27,8 @@ def post_s3(document):
     )
 
 
-@app.route('/index', methods=['POST'])
-def index():
+@app.route('/', methods=['POST'])
+def main():
     if request.method == 'POST':
         classes = request.form['classes']
         teacherName = request.form['teacherName']

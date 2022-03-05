@@ -33,7 +33,7 @@ def rds_insert(schema: DataSchema):
         print("Database connection failed due to {}".format(e))
         return {"status": False, "message": e}
 
-def s3_insert():
+def s3_insert(file: UploadFile = File(...)):
     print("S3")
     return
 
@@ -48,4 +48,4 @@ def rds_endpoint(schema: DataSchema,) -> Any:
 def s3_endpoint(file: UploadFile) -> Any:
     print("¨POST request for S3")
 
-    return s3_insert(schema)
+    return s3_insert(file)
