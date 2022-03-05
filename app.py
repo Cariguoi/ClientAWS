@@ -20,14 +20,14 @@ def post_rds(classes, teacherName, hoursNumber, description):
 
 
 def post_s3(document):
-    data = {'document': document}
+    file = {'document': document}
     r = requests.post(
         url=url,
-        json=data
+        files=file
     )
 
 
-@app.route('/index', methods='POST')
+@app.route('/index', methods=['POST'])
 def index():
     if request.method == 'POST':
         classes = request.form['classes']

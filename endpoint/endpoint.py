@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File
+from fastapi import FastAPI, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from typing import Any
 import mysql.connector
@@ -34,7 +34,8 @@ def rds_insert(schema: DataSchema):
         return {"status": False, "message": e}
 
 def s3_insert():
-    pass
+    print("S3")
+    return
 
 @app.post("/rds", name="data-app", response_model=Response)
 def rds_endpoint(schema: DataSchema,) -> Any:
@@ -43,6 +44,8 @@ def rds_endpoint(schema: DataSchema,) -> Any:
     return rds_insert(schema)
 
 
-@app.post("/rds", name="data-app", response_model=Response)
-def s3_endpoint(schema: DataSchema,) -> Any:
+@app.post("/s3", name="data-app", response_model=Response)
+def s3_endpoint(file: UploadFile) -> Any:
     print("¨POST request for S3")
+
+    return s3_insert(schema)
