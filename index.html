@@ -2,24 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
     <title>AWS Storage</title>
 </head>
 <body>
    <h1>Upload your DATA</h1>
     <br>
-    <h2>Choose your storage</h2>
-
+   {% block content %}
    <form method="post" action="/" enctype="multipart/form-data">
-       <select name=storages method="GET" action="/">
-           <option value= "RDS"></option>"
-           <option value= "S3"></option>"
+
+       <label for="classes">Nom du cours :</label>
+       <input type="text" id="classes" name="classes" value="{{ request.form['classes'] }}">
+       <br>
+       <label for="teacherName">Nom du professeur :</label>
+       <input type="text" id="teacherName" name="teacherName" value="{{ request.form['teacherName'] }}">
+       <br>
+       <label for="hoursNumber">Nombres d'heures :</label>
+       <input type="text" id="hoursNumber" name="hoursNumber" value="{{ request.form['hoursNumber'] }}">
+       <br>
+       <label for="description">Descriptions :</label>
+       <input type="text" id="description" name="description" value="{{ request.form['description'] }}">
+       <br>
+       <label for="document">Documents :</label>
+       <input type="file" id="document" name="document" value="None">
+       <br>
+       <select name="storages" value="RDS">
+           <option value="">--Choisissez un type de stockage--</option>
+           <option value= "RDS">RDS</option>"
+           <option value= "S3">S3</option>"
        </select>
 
        <p>
            <br>
            <input type="submit" value="Submit">
        </p>
+
    </form>
+   {% endblock %}
 
 </body>
 </html>
