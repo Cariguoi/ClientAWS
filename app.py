@@ -1,10 +1,10 @@
 import requests
 from flask import Flask, render_template, request, url_for, flash, redirect
-import settings
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'  # à renseigner
 
+url = ""
 
 @app.route('/')
 def index():
@@ -14,7 +14,7 @@ def index():
 def post_rds(classes, teacherName, hoursNumber, description):
     data = {'classes': classes, 'teacherName': teacherName, 'hoursNumber': hoursNumber, 'description': description}
     r = requests.post(
-        url=settings.url,
+        url=url,
         json=data
     )
 
@@ -22,7 +22,7 @@ def post_rds(classes, teacherName, hoursNumber, description):
 def post_s3(document):
     data = {'document': document}
     r = requests.post(
-        url=settings.url,
+        url=url,
         json=data
     )
 
