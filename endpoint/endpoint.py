@@ -1,7 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from typing import Any
-import mysql.connector
+import pymysql
 import boto3, sys, os
 
 from schemas import DataSchema, Response
@@ -10,29 +10,26 @@ from config import rds_settings
 app = FastAPI()
 
 
-def connect():
-    return mysql.connector.connect(
-        host=rds_settings.RDS_URL,
-        user=rds_settings.RDS_USER,
-        passwd=rds_settings.RDS_PW,
-        port=rds_settings.RDS_PORT,
-        database=rds_settings.RDS_BDD,
-        ssl_ca='')
-
-
 def rds_insert(schema: DataSchema):
     print("Connecting to Database")
-    return
+    db = pymysql.connect(
+        host=rds_settings.RDS_URL,
+        user=rds_settings.RDS_USER,
+        password=rds_settings.RDS_PW,
+        port=rds_settings.RDS_PORT,
+        database=rds_settings.RDS_BDD,
+    )
 
+    with db.cursor() as cur:
+        # Print all the tables from the database
+        cur.execute('SHOW TABLES FROM dbName')
+        for r in cur:
+            print(r)
     try:
-        conn = connect()
-        cur = conn.cursor()
-        cur.execute("""SELECT now()""")
-        query_results = cur.fetchall()
-        print(query_results)
         return {"status": True, "message": ""}
     except Exception as e:
         print("Database connection failed due to {}".format(e))
+        print("Could not connect")
         return {"status": False, "message": e}
 
 
