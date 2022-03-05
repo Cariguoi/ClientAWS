@@ -7,6 +7,7 @@ app.config['SECRET_KEY'] = 'your secret key'  # à renseigner
 url_rds = "http://127.0.0.1:8000/rds"
 url_s3 = "http://127.0.0.1:8000/s3"
 
+
 def post_rds(subject: str, teacher_name: str, hours_numbers: str, description: str):
     data = {'subject': subject,
             'teacher_name': teacher_name,
@@ -23,7 +24,7 @@ def post_rds(subject: str, teacher_name: str, hours_numbers: str, description: s
 
 
 def post_s3(document):
-    file = {'document': document}
+    file = {'document': open(document, 'rb')}
     print("Posting to S3")
     res = requests.post(
         url=url_s3,

@@ -2,7 +2,6 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.encoders import jsonable_encoder
 from typing import Any
 import pymysql
-import boto3, sys, os
 
 from schemas import DataSchema, Response
 from config import rds_settings
