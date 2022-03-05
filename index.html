@@ -6,10 +6,10 @@
     <title>AWS Storage</title>
 </head>
 <body>
-   <h1>Upload your DATA</h1>
+   <h1>Charger vos données sur RDS</h1>
     <br>
    {% block content %}
-   <form method="post" action="/" enctype="multipart/form-data">
+   <form method="post" action="/" enctype="multipart/form-data" name="RDS">
 
        <label for="classes">Nom du cours :</label>
        <input type="text" id="classes" name="classes" value="{{ request.form['classes'] }}">
@@ -22,16 +22,26 @@
        <br>
        <label for="description">Descriptions :</label>
        <input type="text" id="description" name="description" value="{{ request.form['description'] }}">
+
+       <p>
+           <br>
+           <input type="submit" value="Submit">
+       </p>
+
+   </form>
+   {% endblock %}
+
+   <br>
+   <br>
+   <br>
+
+   <h1>Charger vos données sur S3</h1>
+    <br>
+   {% block content %}
+   <form method="post" action="/" enctype="multipart/form-data" name="S3">
        <br>
        <label for="document">Documents :</label>
-       <input type="file" id="document" name="document" value="None">
-       <br>
-       <select name="storages" value="RDS">
-           <option value="">--Choisissez un type de stockage--</option>
-           <option value= "RDS">RDS</option>"
-           <option value= "S3">S3</option>"
-       </select>
-
+       <input type="file" id="document" name="{{ request.form['document'] }}">
        <p>
            <br>
            <input type="submit" value="Submit">

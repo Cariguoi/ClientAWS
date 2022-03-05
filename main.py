@@ -11,9 +11,16 @@ def index():
     return render_template('index.html')
 
 
-def post_rds(classes, teacherName, hoursNumber, description, document, storages):
-    data = {'class': classes, 'teacherName': teacherName, 'hoursNumber': hoursNumber, 'description': description,
-            'document': document, 'storages': storages}
+def post_rds(classes, teacherName, hoursNumber, description):
+    data = {'classes': classes, 'teacherName': teacherName, 'hoursNumber': hoursNumber, 'description': description}
+    r = requests.post(
+        url=settings.url,
+        json=data
+    )
+
+
+def post_s3(document):
+    data = {'document': document}
     r = requests.post(
         url=settings.url,
         json=data
@@ -28,12 +35,12 @@ def index():
         hoursNumber = request.form['hoursNumber']
         description = request.form['description']
         document = request.form['document']
-        storages = request.form['storages']
 
-        if not classes or storages:
-            flash('Un nom de cours et un type de stockage est requis est requis')
+        if document:
+            post_s3(document)
+            return redirect(url_for('index'))
         else:
-            post_rds(classes, teacherName, hoursNumber, description, document, storages)
+            post_rds(classes, teacherName, hoursNumber, description)
             return redirect(url_for('index'))
 
     return render_template('index.html')
