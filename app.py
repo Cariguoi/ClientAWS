@@ -11,9 +11,9 @@ def index():
     return render_template('index.html')
 
 
-def post_rds(classes, teacherName, hoursNumber, description):
-    data = {'classes': classes, 'teacherName': teacherName, 'hoursNumber': hoursNumber, 'description': description}
-    r = requests.post(
+def post_rds(classes, teacher_name, hours_numbers, description):
+    data = {'classes': classes, 'teacherName': teacher_name, 'hoursNumber': hours_numbers, 'description': description}
+    return requests.post(
         url=url,
         json=data
     )
@@ -21,7 +21,7 @@ def post_rds(classes, teacherName, hoursNumber, description):
 
 def post_s3(document):
     file = {'document': document}
-    r = requests.post(
+    return requests.post(
         url=url,
         files=file
     )
