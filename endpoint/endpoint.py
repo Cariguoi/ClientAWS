@@ -9,14 +9,16 @@ from config import rds_settings
 
 app = FastAPI()
 
+
 def connect():
     return mysql.connector.connect(
-            host=rds_settings.RDS_URL,
-            user=rds_settings.RDS_USER,
-            passwd=rds_settings.RDS_PW,
-            port=rds_settings.RDS_PORT,
-            database=rds_settings.RDS_BDD,
-            ssl_ca='')
+        host=rds_settings.RDS_URL,
+        user=rds_settings.RDS_USER,
+        passwd=rds_settings.RDS_PW,
+        port=rds_settings.RDS_PORT,
+        database=rds_settings.RDS_BDD,
+        ssl_ca='')
+
 
 def rds_insert(schema: DataSchema):
     print("Connecting to Database")
@@ -33,19 +35,21 @@ def rds_insert(schema: DataSchema):
         print("Database connection failed due to {}".format(e))
         return {"status": False, "message": e}
 
-def s3_insert(file: UploadFile = File(...)):
+
+def s3_insert(file: bytes):
     print("S3")
     return
 
+
 @app.post("/rds", name="data-app", response_model=Response)
-def rds_endpoint(schema: DataSchema,) -> Any:
+def rds_endpoint(schema: DataSchema, ) -> Any:
     print("¨POST request for RDS")
 
     return rds_insert(schema)
 
 
 @app.post("/s3", name="data-app", response_model=Response)
-def s3_endpoint(file: UploadFile) -> Any:
+def s3_endpoint(file: bytes = File(...)) -> Any:
     print("¨POST request for S3")
 
     return s3_insert(file)
