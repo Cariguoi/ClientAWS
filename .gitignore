@@ -1,5 +1,4 @@
 endpoint/.env
-templates
 .idea
 __pycache__
 appp.py

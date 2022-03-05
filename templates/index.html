@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="">
+    <title>AWS Storage</title>
+</head>
+<body>
+   <h1>Charger vos données sur RDS</h1>
+    <br>
+   <form method="GET" action="/" enctype="multipart/form-data" name="rds">
+
+       <label for="subject">Nom du cours :</label>
+       <input type="text" id="subject" name="subject" value="a">
+       <br>
+       <label for="teacher_name">Nom du professeur :</label>
+       <input type="text" id="teacher_name" name="teacher_name" value="b">
+       <br>
+       <label for="hours_numbers">Nombres d'heures :</label>
+       <input type="text" id="hours_numbers" name="hours_numbers" value="c">
+       <br>
+       <label for="description">Descriptions :</label>
+       <input type="text" id="description" name="description" value="d">
+
+       <p>
+           <br>
+           <input type="submit" value="Submit">
+       </p>
+
+   </form>
+
+   <br>
+   <br>
+   <br>
+
+   <h1>Charger vos données sur S3</h1>
+    <br>
+   <form method="GET" action="/" enctype="multipart/form-data" name="s3">
+       <br>
+       <label for="document">Documents :</label>
+       <input type="file" id="document" name="document">
+       <p>
+           <br>
+           <input type="submit" value="Submit">
+       </p>
+
+   </form>
+
+</body>
+</html>
