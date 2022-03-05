@@ -11,25 +11,27 @@ app = FastAPI()
 
 def rds_insert(schema: DataSchema):
     print("Connecting to Database")
+    print(rds_settings.RDS_URL)
     db = pymysql.connect(
         host=rds_settings.RDS_URL,
         user=rds_settings.RDS_USER,
         password=rds_settings.RDS_PW,
-        port=rds_settings.RDS_PORT,
+        port=int(rds_settings.RDS_PORT),
         database=rds_settings.RDS_BDD,
     )
 
+    print("connected")
     with db.cursor() as cur:
-        # Print all the tables from the database
-        cur.execute('SHOW TABLES FROM dbName')
-        for r in cur:
-            print(r)
-    try:
-        return {"status": True, "message": ""}
-    except Exception as e:
-        print("Database connection failed due to {}".format(e))
-        print("Could not connect")
-        return {"status": False, "message": e}
+        try:
+            # Print all the tables from the database
+            cur.execute(f'SHOW TABLES FROM {rds_settings.RDS_BDD}')
+            for r in cur:
+                print(r)
+            return {"status": True, "message": ""}
+        except Exception as e:
+            print("Database connection failed due to {}".format(e))
+            print("Could not connect")
+            return {"status": False, "message": e}
 
 
 def s3_insert(file: bytes):
